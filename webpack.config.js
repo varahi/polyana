@@ -8,7 +8,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
+    .setOutputPath('public_html/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
@@ -49,6 +49,10 @@ Encore
     // .configureBabel((config) => {
     //     config.plugins.push('@babel/a-babel-plugin');
     // })
+
+    .configureBabel((config) => {
+        config.plugins.push('@babel/plugin-proposal-class-properties');
+    })
 
     // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {

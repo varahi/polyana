@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Item;
+use App\Entity\Category;
+use App\Entity\Location;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -48,7 +50,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Object', 'fas fa-list', Item::class);
+        //yield MenuItem::linkToRoute('Back to the site', 'fa fa-home', 'app_home');
+
+        yield MenuItem::section('Items and categories');
+        yield MenuItem::subMenu('Items', 'fa fa-tags')->setSubItems([
+            MenuItem::linkToCrud('Items', 'fa fa-list', Item::class),
+            MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class),
+            MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class),
+        ]);
     }
 }

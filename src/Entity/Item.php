@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
+//use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
+
+/**
+ * @ORM\Entity(repositoryClass=ItemRepository::class)
+ * @UniqueEntity("slug")
+ * @ORM\Entity(repositoryClass=ItemRepository::class)
+ */
 class Item
 {
     #[ORM\Id]
@@ -70,9 +80,29 @@ class Item
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'items')]
     private Collection $category;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $hidden = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['item:list', 'item:item'])]
+    private ?string $slug = null;
+
+    #[ORM\ManyToMany(targetEntity: Location::class, inversedBy: 'items')]
+    private Collection $location;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->created = new \DateTime();
+        $this->location = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return 'ID - ' . $this->id . ' ' .$this->title;
     }
 
     public function getId(): ?int
@@ -304,6 +334,66 @@ class Item
     public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    public function isHidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function setHidden(?bool $hidden): self
+    {
+        $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location->add($location);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        $this->location->removeElement($location);
 
         return $this;
     }

@@ -2,22 +2,22 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Category;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use App\Entity\Location;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
-class CategoryCrudController extends AbstractCrudController
+class LocationCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Category::class;
+        return Location::class;
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -30,9 +30,9 @@ class CategoryCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Categories')
-            ->setEntityLabelInPlural('Categories')
-            ->setSearchFields(['id', 'title', 'description'])
+            ->setEntityLabelInSingular('Location')
+            ->setEntityLabelInPlural('Location')
+            ->setSearchFields(['id', 'title'])
             ->setDefaultSort(['id' => 'ASC']);
     }
 

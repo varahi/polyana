@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+#[ORM\Entity(repositoryClass: LocationRepository::class)]
+class Location
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,17 +22,17 @@ class Category
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $isHidden = null;
-
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $children;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'location')]
     private Collection $items;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isHidden = null;
 
     public function __construct()
     {
@@ -44,7 +44,6 @@ class Category
     {
         return 'ID - ' . $this->id . ' ' .$this->title;
     }
-
 
     public function getId(): ?int
     {
@@ -71,18 +70,6 @@ class Category
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function isIsHidden(): ?bool
-    {
-        return $this->isHidden;
-    }
-
-    public function setIsHidden(?bool $isHidden): self
-    {
-        $this->isHidden = $isHidden;
 
         return $this;
     }
@@ -141,7 +128,7 @@ class Category
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
-            $item->addCategory($this);
+            $item->addLocation($this);
         }
 
         return $this;
@@ -150,8 +137,20 @@ class Category
     public function removeItem(Item $item): self
     {
         if ($this->items->removeElement($item)) {
-            $item->removeCategory($this);
+            $item->removeLocation($this);
         }
+
+        return $this;
+    }
+
+    public function isIsHidden(): ?bool
+    {
+        return $this->isHidden;
+    }
+
+    public function setIsHidden(?bool $isHidden): self
+    {
+        $this->isHidden = $isHidden;
 
         return $this;
     }
