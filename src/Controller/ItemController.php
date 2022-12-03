@@ -20,7 +20,16 @@ class ItemController extends AbstractController
         ItemRepository $itemRepository,
         CategoryRepository $categoryRepository
     ): Response {
+        $categoryId = $request->query->get('category');
         $categories = $categoryRepository->findAll();
+
+        if ($categoryId !== '') {
+            $category = $categoryRepository->findOneBy(['id' => $categoryId]);
+            $items = $itemRepository->findByParams($category);
+        } else {
+            $category = null;
+            $items = $itemRepository->findAll();
+        }
 
         //$items = $itemRepository->findAll();
         //dd($items);
@@ -28,7 +37,8 @@ class ItemController extends AbstractController
         //dd($locale);
 
         return new Response($twig->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
+            'items' => $items,
+            'category' => $category,
             'categories' => $categories
         ]));
     }

@@ -3,7 +3,6 @@
         <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
         <span class="fs-5 fw-semibold">{{ 'Menu'|trans }}</span>
     </a>
-
     <ul class="list-unstyled ps-0">
         {% for category in categories %}
             <li class="mb-1">
@@ -15,7 +14,7 @@
                 <div class="collapse" id="category-collapse-{{ category.id }}">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         {% for children in category.children %}
-                            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">{{ children.title }}</a></li>
+                            <li><a href="{{ path('app_item', { category: children.id }) }}" class="link-dark d-inline-flex text-decoration-none rounded">{{ children.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -23,5 +22,4 @@
                 {% endif %}
         {% endfor %}
     </ul>
-
 </div>

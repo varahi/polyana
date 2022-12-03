@@ -45,17 +45,17 @@ class LocationCrudController extends AbstractCrudController
         //yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield TextField::new('title');
 
-        //yield AssociationField::new('parent');
-        yield AssociationField::new('parent')
-            ->setFormTypeOptions([
-                'by_reference' => false,
-            ]);
+        yield AssociationField::new('parent');
+//        yield AssociationField::new('parent')
+//            ->setFormTypeOptions([
+//                'by_reference' => false,
+//            ]);
 
-        //yield CollectionField::new('children');
-        yield AssociationField::new('children')
-            ->setFormTypeOptions([
-                'by_reference' => false,
-            ]);
+        yield CollectionField::new('children');
+//        yield AssociationField::new('children')
+//            ->setFormTypeOptions([
+//                'by_reference' => false,
+//            ]);
 
         yield TextEditorField::new('description')->hideOnIndex();
         yield AssociationField::new('items')->hideOnIndex();

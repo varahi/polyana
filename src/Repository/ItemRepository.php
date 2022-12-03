@@ -16,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ItemRepository extends ServiceEntityRepository
 {
+    public const TABLE = 'App\Entity\Item';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Item::class);
@@ -38,6 +40,26 @@ class ItemRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @param Item $item
+     */
+    public function findByParams($category)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from(self::TABLE, 'i')
+            ->orderBy('i.created', 'DESC')
+        ;
+
+        if ($category) {
+            $qb->join('i.category', 'c')
+                ->where($qb->expr()->eq('c.id', $category->getId()));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Item[] Returns an array of Item objects

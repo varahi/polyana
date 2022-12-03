@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="f90xC.h" resname="List items">
         <source>List items</source>
-        <target>Список объектов</target>
+        <target>Объекты</target>
       </trans-unit>
     </body>
   </file>

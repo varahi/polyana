@@ -78,8 +78,8 @@ class ItemCrudController extends AbstractCrudController
 
         yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-4');
         yield FormField::addRow();
-        yield AssociationField::new('category')->hideOnIndex()->setColumns('col-md-12');
-        yield AssociationField::new('location')->hideOnIndex()->setColumns('col-md-12');
+        yield AssociationField::new('category')->setColumns('col-md-12')->hideOnIndex();
+        yield AssociationField::new('location')->setColumns('col-md-12')->hideOnIndex();
         yield ImageField::new('image')
             ->setBasePath('uploads/files/')
             ->setUploadDir('public_html/uploads/files')
