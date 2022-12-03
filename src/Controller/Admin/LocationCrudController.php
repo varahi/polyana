@@ -8,7 +8,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
@@ -39,13 +41,18 @@ class LocationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
+        //yield TextField::new('slug');
+        //yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield TextField::new('title');
-        //yield AssociationField::new('parent')->hideOnIndex();
-        yield AssociationField::new('children')
+
+        //yield AssociationField::new('parent');
+        yield AssociationField::new('parent')
             ->setFormTypeOptions([
                 'by_reference' => false,
             ]);
-        yield AssociationField::new('parent')
+
+        //yield CollectionField::new('children');
+        yield AssociationField::new('children')
             ->setFormTypeOptions([
                 'by_reference' => false,
             ]);

@@ -7,8 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+
+/**
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @UniqueEntity("slug")
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ */
 class Category
 {
     #[ORM\Id]
@@ -33,6 +41,10 @@ class Category
 
     #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'category')]
     private Collection $items;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['category:list', 'category:item'])]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -152,6 +164,18 @@ class Category
         if ($this->items->removeElement($item)) {
             $item->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -55,7 +55,7 @@ class ItemCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Main info')->setIcon('fa fa-info')->setCssClass('col-sm-6');
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled')->hideWhenCreating();
-        yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title')->hideOnIndex();
+        yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield BooleanField::new('hidden');
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();

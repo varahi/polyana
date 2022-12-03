@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
+
+/**
+ * @UniqueEntity("slug")
+ */
 class Location
 {
     #[ORM\Id]
@@ -33,6 +38,9 @@ class Location
 
     #[ORM\Column(nullable: true)]
     private ?bool $isHidden = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -151,6 +159,18 @@ class Location
     public function setIsHidden(?bool $isHidden): self
     {
         $this->isHidden = $isHidden;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

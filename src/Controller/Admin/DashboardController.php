@@ -53,7 +53,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Back to the site', 'fa fa-home', 'app_home');
 
         yield MenuItem::section('Items and categories');
-        yield MenuItem::subMenu('Items', 'fa fa-tags')->setSubItems([
+        yield MenuItem::subMenu('Items and categories', 'fa fa-tags')->setSubItems([
             MenuItem::linkToCrud('Items', 'fa fa-list', Item::class),
             MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class),
             MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class),
