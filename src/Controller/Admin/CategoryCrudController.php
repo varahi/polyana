@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -14,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use function Symfony\Component\Translation\t;
 
 class CategoryCrudController extends AbstractCrudController
@@ -43,11 +45,11 @@ class CategoryCrudController extends AbstractCrudController
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
         yield TextField::new('title');
-        //yield TextField::new('slug');
-        //yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
+        yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
+        yield BooleanField::new('isFullWidth');
 
-        yield AssociationField::new('parent');
-        yield AssociationField::new('children');
+        //yield AssociationField::new('parent');
+        //yield AssociationField::new('children');
 
         /*        yield AssociationField::new('parent')
                     ->setFormTypeOptions([
@@ -61,6 +63,11 @@ class CategoryCrudController extends AbstractCrudController
                 ]);*/
 
         yield TextEditorField::new('description')->hideOnIndex();
+        yield ImageField::new('image')
+            ->setBasePath('uploads/files/')
+            ->setUploadDir('public_html/uploads/files')
+            ->setFormType(FileUploadType::class)
+            ->setRequired(false);
         yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
     }

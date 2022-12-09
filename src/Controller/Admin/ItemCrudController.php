@@ -71,6 +71,9 @@ class ItemCrudController extends AbstractCrudController
         yield TextField::new('phone3')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('site')->setColumns('col-md-10')->hideOnIndex();
 
+        yield TextField::new('lat')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('lng')->setColumns('col-md-10')->hideOnIndex();
+
         yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-8');
         yield FormField::addRow();
         yield TextEditorField::new('description')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');

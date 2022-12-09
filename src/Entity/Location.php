@@ -42,10 +42,20 @@ class Location
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Event::class)]
+    private Collection $events;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 7, nullable: true)]
+    private ?string $lat = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 7)]
+    private ?string $lng = null;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -171,6 +181,60 @@ class Location
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getLocation() === $this) {
+                $event->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(string $lng): self
+    {
+        $this->lng = $lng;
 
         return $this;
     }

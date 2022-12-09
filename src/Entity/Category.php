@@ -46,6 +46,12 @@ class Category
     #[Groups(['category:list', 'category:item'])]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isFullWidth = null;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -176,6 +182,30 @@ class Category
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function isIsFullWidth(): ?bool
+    {
+        return $this->isFullWidth;
+    }
+
+    public function setIsFullWidth(?bool $isFullWidth): self
+    {
+        $this->isFullWidth = $isFullWidth;
 
         return $this;
     }
