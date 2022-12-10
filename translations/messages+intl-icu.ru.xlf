@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="file.ext">
+  <file source-language="ru" target-language="ru" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -12,6 +12,26 @@
       <trans-unit id="f90xC.h" resname="List items">
         <source>List items</source>
         <target>Объекты</target>
+      </trans-unit>
+      <trans-unit id="CE5TZjs" resname="List empty">
+        <source>List empty</source>
+        <target>__List empty</target>
+      </trans-unit>
+      <trans-unit id="jRT25y3" resname="Events">
+        <source>Events</source>
+        <target>Афиша</target>
+      </trans-unit>
+      <trans-unit id="vhdrABX" resname="Map">
+        <source>Map</source>
+        <target>Карта</target>
+      </trans-unit>
+      <trans-unit id="64FL48o" resname="Main">
+        <source>Main</source>
+        <target>Главная</target>
+      </trans-unit>
+      <trans-unit id="pSrOQg8" resname="All">
+        <source>All</source>
+        <target>Все</target>
       </trans-unit>
     </body>
   </file>

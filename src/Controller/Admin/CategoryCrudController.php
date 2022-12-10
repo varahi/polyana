@@ -45,6 +45,7 @@ class CategoryCrudController extends AbstractCrudController
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
         yield TextField::new('title');
+        yield TextField::new('subtitle');
         yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield BooleanField::new('isFullWidth');
 

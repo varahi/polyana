@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Item;
+use App\Entity\Category;
+use App\Entity\Location;
 use App\Repository\CategoryRepository;
+use App\Repository\LocationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,49 +16,51 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemController extends AbstractController
 {
-    #[Route('/', name: 'app_item')]
-    public function index(
+    #[Route('/items/{slug}', name: 'app_item_list')]
+    public function list(
         Environment $twig,
-        Request $request,
+        Category $category,
         ItemRepository $itemRepository,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        LocationRepository $locationRepository
     ): Response {
-        $categoryId = $request->query->get('category');
-        $categories = $categoryRepository->findAll();
+        // $slug = $request->query->get('category');
 
-        if ($categoryId !== '') {
-            $category = $categoryRepository->findOneBy(['id' => $categoryId]);
-            $items = $itemRepository->findByParams($category);
+        if ($category) {
+            $items = $itemRepository->findByCategory($category, '999');
         } else {
-            $category = null;
             $items = $itemRepository->findAll();
         }
-
-        //$items = $itemRepository->findAll();
-        //dd($items);
-        //$locale = $request->getLocale();
-        //dd($locale);
+        $categories = $categoryRepository->findAll();
+        $locations = $locationRepository->findAll();
 
         return new Response($twig->render('item/index.html.twig', [
             'items' => $items,
+            'categories' => $categories,
             'category' => $category,
-            'categories' => $categories
+            'locations' => $locations
         ]));
     }
 
-    #[Route('/shiw-item/{slug}', name: 'app_show_item')]
-    public function showItem(
+    #[Route('/items/location/{id}', name: 'app_item_location_list')]
+    public function listLocation(
         Environment $twig,
-        Item $item,
+        Location $location,
         ItemRepository $itemRepository,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        LocationRepository $locationRepository
     ): Response {
+        //dd($location);
+    }
 
-        // $slug = $request->query->get('category');
-        $categories = $categoryRepository->findAll();
-        return new Response($twig->render('item/detail.html.twig', [
-            'item' => $item,
-            'categories' => $categories
-        ]));
+    #[Route('/item-detail/{slug}', name: 'app_detail_item')]
+    public function detailItem(
+        Environment $twig,
+        Location $location,
+        ItemRepository $itemRepository,
+        CategoryRepository $categoryRepository,
+        LocationRepository $locationRepository
+    ): Response {
+        //dd($location);
     }
 }

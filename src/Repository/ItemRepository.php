@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -59,6 +60,26 @@ class ItemRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param Category $category
+     * @param $limit
+     * @return float|int|mixed|string
+     */
+    public function findByCategory(Category $category, $limit)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+        $qb->select('i')
+            ->from(self::TABLE, 'i')
+            ->join('i.category', 'c')
+            ->where($qb->expr()->eq('c.id', $category->getId()))
+            ->setMaxResults($limit)
+            ->orderBy('i.created', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 
 //    /**

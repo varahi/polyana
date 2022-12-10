@@ -52,6 +52,9 @@ class Category
     #[ORM\Column(nullable: true)]
     private ?bool $isFullWidth = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $subtitle = null;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -206,6 +209,18 @@ class Category
     public function setIsFullWidth(?bool $isFullWidth): self
     {
         $this->isFullWidth = $isFullWidth;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(?string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
 
         return $this;
     }

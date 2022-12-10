@@ -1,0 +1,41 @@
+{% extends 'main.html.twig' %}
+{% block title %} - Список объектов{% endblock %}
+{% block body %}
+    <main class="wrapper">
+        <header class="header">
+            <div class="row">
+                <div class="col-md-7 logo">
+                    <a href="">
+                        <img src="{{ asset('assets/images/logo2.svg') }}" alt="" />
+                    </a>
+                </div>
+                <div class="col-md-5 buttons">
+                    <a class="btn " href="#" role="button">{{ 'Events'|trans }}</a>
+                    <a class="btn " href="#" role="button">{{ 'Map'|trans }}</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{{ asset('assets/images/main_page.png') }}" class="main-image" alt="" />
+                </div>
+            </div>
+        </header>
+        {% if categories is not null %}
+            <div class="row">
+                {% for category in categories %}
+                    {% if category.isFullWidth == 1 %}
+                        <div class="col-md-12">
+                            {% include 'partials/category/_list.html.twig' %}
+                        </div>
+                    {% else %}
+                        <div class="col-md-6">
+                            {% include 'partials/category/_list.html.twig' %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{{ 'List empty'|trans }}</p>
+        {% endif %}
+    </main>
+{% endblock %}
