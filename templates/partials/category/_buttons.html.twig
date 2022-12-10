@@ -1,0 +1,14 @@
+<uL class="button-list">
+    <li class="">
+        <a class="btn btn-list {% if locationId is null %} btn-list-active {% endif %}" href="{{ path('app_item_list', { slug: category.slug}) }}" role="button">
+            {{ 'All'|trans }} {{ category.subtitle }}
+        </a>
+    </li>
+    {% for location in locations %}
+        <li class="">
+            <a class="btn btn-list {% if location.id == locationId %} btn-list-active {% endif %}" href="{{ path('app_item_location_list', { slug: location.slug, category: category.id}) }}" role="button">
+                {{ location.title }}
+            </a>
+        </li>
+    {% endfor %}
+</uL>

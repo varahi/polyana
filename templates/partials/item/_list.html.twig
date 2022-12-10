@@ -1,0 +1,22 @@
+<div class="list-item">
+    <a href="{{ path('app_detail_item', { slug: item.slug}) }}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+        <h3 class="mb-1 more">{{ item.title }}</h3>
+        <div class="slider">
+            <img src="{{ asset('uploads/files/' ~ item.image) }}" class="item-image" alt="" />
+        </div>
+        <div class="description">
+            {% if location is not null %}
+                <span class="small-grey">{{ category.subtitle }} {{ 'in'|trans }} {{ location.title }}</span>
+            {% endif %}
+            <div class="address">{{ item.address }}</div>
+        </div>
+
+        {#<div class="col-10 mb-1 small">
+                                {% if item.teaser %}
+                                    {{ item.teaser|length > 50 ?item.teaser|slice(0, 50) ~ '...' : item.teaser  }}
+                                {% else %}
+                                    {{ item.description|striptags|u.truncate(50,  '...')|raw }}
+                                {% endif %}
+                            </div>#}
+    </a>
+</div>

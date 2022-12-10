@@ -16,6 +16,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemController extends AbstractController
 {
+    /**
+     * @param Environment $twig
+     * @param Category $category
+     * @param ItemRepository $itemRepository
+     * @param CategoryRepository $categoryRepository
+     * @param LocationRepository $locationRepository
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/items/{slug}', name: 'app_item_list')]
     public function list(
         Environment $twig,
@@ -24,6 +35,7 @@ class ItemController extends AbstractController
         CategoryRepository $categoryRepository,
         LocationRepository $locationRepository
     ): Response {
+
         // $slug = $request->query->get('category');
 
         if ($category) {
@@ -38,19 +50,47 @@ class ItemController extends AbstractController
             'items' => $items,
             'categories' => $categories,
             'category' => $category,
-            'locations' => $locations
+            'locations' => $locations,
+            'location' => null,
+            'locationId' => null
         ]));
     }
 
-    #[Route('/items/location/{id}', name: 'app_item_location_list')]
+    /**
+     * @param Request $request
+     * @param Environment $twig
+     * @param Location $location
+     * @param ItemRepository $itemRepository
+     * @param CategoryRepository $categoryRepository
+     * @param LocationRepository $locationRepository
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    #[Route('/items/location/{slug}', name: 'app_item_location_list')]
     public function listLocation(
+        Request $request,
         Environment $twig,
         Location $location,
         ItemRepository $itemRepository,
         CategoryRepository $categoryRepository,
         LocationRepository $locationRepository
     ): Response {
-        //dd($location);
+        $categoryId = $request->query->get('category');
+        $category = $categoryRepository->findOneBy(['id' => $categoryId]);
+        $items = $itemRepository->findByLocation($location, '999');
+        $categories = $categoryRepository->findAll();
+        $locations = $locationRepository->findAll();
+
+        return new Response($twig->render('item/index.html.twig', [
+            'items' => $items,
+            'categories' => $categories,
+            'category' => $category,
+            'locations' => $locations,
+            'location' => $location,
+            'locationId' => $location->getId()
+        ]));
     }
 
     #[Route('/item-detail/{slug}', name: 'app_detail_item')]

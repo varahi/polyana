@@ -2,66 +2,22 @@
 {% block title %} - {{ category.title }}{% endblock %}
 {% block body %}
     <main class="wrapper">
-        <header class="header">
-            <div class="row">
-                <div class="col-md-7 logo">
-                    <a href="">
-                        <img src="{{ asset('assets/images/logo2.svg') }}" alt="" />
-                    </a>
-                </div>
-                <div class="col-md-5 buttons">
-                    <a class="btn " href="#" role="button">{{ 'Events'|trans }}</a>
-                    <a class="btn " href="#" role="button">{{ 'Map'|trans }}</a>
-                </div>
-            </div>
-        </header>
-
+        {% include 'partials/item/_header.html.twig' %}
         <div class="content">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('app_home') }}">{{ 'Main'|trans }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
-                </ol>
-            </nav>
-
+            {% include 'partials/item/_breadcrumb.html.twig' %}
             <div class="row">
                 <h1>{{ category.title }}</h1>
-                <uL class="button-list">
-                    <li class="">
-                        <a class="btn btn-list btn-list-active" href="" role="button">
-                            {{ 'All'|trans }} {{ category.subtitle }}
-                        </a>
-                    </li>
-                    {% for location in locations %}
-                        <li class=""><a class="btn btn-list" href="{{ path('app_item_location_list', { id: location.id}) }}" role="button">{{ location.title }}</a></li>
-                    {% endfor %}
-                </uL>
-
-                <div class="col-md-12 items">
+                {% include 'partials/category/_buttons.html.twig' %}
+                <div class="col-md-12">
                     {% if items is not null %}
                         {% for item in items %}
-                            <a href="{{ path('app_detail_item', { slug: item.slug}) }}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
-                                <div class="d-flex w-100 align-items-center justify-content-between">
-                                    <strong class="mb-1">{{ item.title }}</strong>
-                                    {# <small>Wed</small>#}
-                                </div>
-                                <img src="{{ asset('uploads/files/' ~ item.image) }}" class="item-image" alt="" />
-                                <div class="col-10 mb-1 small">
-                                    {% if item.teaser %}
-                                        {{ item.teaser|length > 50 ?item.teaser|slice(0, 50) ~ '...' : item.teaser  }}
-                                    {% else %}
-                                        {{ item.description|striptags|u.truncate(50,  '...')|raw }}
-                                    {% endif %}
-                                </div>
-                            </a>
+                            {% include 'partials/item/_list.html.twig' %}
                         {% endfor %}
                     {% else %}
                         <p>{{ 'List empty'|trans }}</p>
                     {% endif %}
                 </div>
             </div>
-
         </div>
-
     </main>
 {% endblock %}

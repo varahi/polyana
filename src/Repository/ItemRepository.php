@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Item;
+use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -74,6 +75,20 @@ class ItemRepository extends ServiceEntityRepository
             ->from(self::TABLE, 'i')
             ->join('i.category', 'c')
             ->where($qb->expr()->eq('c.id', $category->getId()))
+            ->setMaxResults($limit)
+            ->orderBy('i.created', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByLocation(Location $location, $limit)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+        $qb->select('i')
+            ->from(self::TABLE, 'i')
+            ->join('i.location', 'l')
+            ->where($qb->expr()->in('l.id', $location->getId()))
             ->setMaxResults($limit)
             ->orderBy('i.created', 'DESC');
 

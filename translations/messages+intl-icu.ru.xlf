@@ -33,6 +33,10 @@
         <source>All</source>
         <target>Все</target>
       </trans-unit>
+      <trans-unit id="WClnU00" resname="in">
+        <source>in</source>
+        <target>в</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

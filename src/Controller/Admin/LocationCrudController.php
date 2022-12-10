@@ -42,7 +42,7 @@ class LocationCrudController extends AbstractCrudController
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
         //yield TextField::new('slug');
-        //yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
+        yield SlugField::new('slug')->setTargetFieldName('title');
         yield TextField::new('title');
 
         yield AssociationField::new('parent');
@@ -51,7 +51,8 @@ class LocationCrudController extends AbstractCrudController
 //                'by_reference' => false,
 //            ]);
 
-        yield CollectionField::new('children');
+        //yield AssociationField::new('children');
+        //yield CollectionField::new('children');
 //        yield AssociationField::new('children')
 //            ->setFormTypeOptions([
 //                'by_reference' => false,
