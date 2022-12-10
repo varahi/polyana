@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Item;
 use App\Entity\Category;
 use App\Entity\Location;
+use App\Entity\Tag;
+use App\Entity\Event;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -52,11 +54,14 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Back to the site', 'fa fa-home', 'app_home');
 
-        yield MenuItem::section('Items and categories');
-        yield MenuItem::subMenu('Items and categories', 'fa fa-tags')->setSubItems([
+        yield MenuItem::section('Items and tags');
+        yield MenuItem::subMenu('Items and tags', 'fa fa-tags')->setSubItems([
             MenuItem::linkToCrud('Items', 'fa fa-list', Item::class),
-            MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class),
-            MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class),
+            MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class),
         ]);
+
+        yield MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class);
+        yield MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class);
+        yield MenuItem::linkToCrud('Events', 'fa fa-film', Event::class);
     }
 }

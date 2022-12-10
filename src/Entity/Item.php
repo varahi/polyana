@@ -93,11 +93,24 @@ class Item
     #[ORM\ManyToMany(targetEntity: Location::class, inversedBy: 'items')]
     private Collection $location;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $timetable = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $averageCheck = null;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'items')]
+    private Collection $tags;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $note = null;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
         $this->created = new \DateTime();
         $this->location = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -394,6 +407,66 @@ class Item
     public function removeLocation(Location $location): self
     {
         $this->location->removeElement($location);
+
+        return $this;
+    }
+
+    public function getTimetable(): ?string
+    {
+        return $this->timetable;
+    }
+
+    public function setTimetable(?string $timetable): self
+    {
+        $this->timetable = $timetable;
+
+        return $this;
+    }
+
+    public function getAverageCheck(): ?string
+    {
+        return $this->averageCheck;
+    }
+
+    public function setAverageCheck(?string $averageCheck): self
+    {
+        $this->averageCheck = $averageCheck;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }

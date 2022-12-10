@@ -59,7 +59,8 @@ class ItemCrudController extends AbstractCrudController
         yield BooleanField::new('hidden');
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
-        yield TextareaField::new('teaser')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('averageCheck')->setColumns('col-md-10')->hideOnIndex();
 
         //yield TextField::new('alias')->setColumns('col-md-10');
 
@@ -74,15 +75,18 @@ class ItemCrudController extends AbstractCrudController
         yield TextField::new('lat')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('lng')->setColumns('col-md-10')->hideOnIndex();
 
-        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-8');
+        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
         yield FormField::addRow();
+        yield TextareaField::new('teaser')->setColumns('col-md-12')->hideOnIndex();
         yield TextEditorField::new('description')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
+        yield TextEditorField::new('note')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
 
 
-        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-4');
+        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-12');
         yield FormField::addRow();
         yield AssociationField::new('category')->setColumns('col-md-12')->hideOnIndex();
         yield AssociationField::new('location')->setColumns('col-md-12')->hideOnIndex();
+        yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
         yield ImageField::new('image')
             ->setBasePath('uploads/files/')
             ->setUploadDir('public_html/uploads/files')

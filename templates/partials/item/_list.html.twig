@@ -10,7 +10,6 @@
             {% endif %}
             <div class="address">{{ item.address }}</div>
         </div>
-
         {#<div class="col-10 mb-1 small">
                                 {% if item.teaser %}
                                     {{ item.teaser|length > 50 ?item.teaser|slice(0, 50) ~ '...' : item.teaser  }}
@@ -19,4 +18,9 @@
                                 {% endif %}
                             </div>#}
     </a>
+
+    <div class="buttons buttons-item">
+        <a class="btn active" href="tel:{{ item.phone|trim|replace({'(': '', ')': '', ' ': '-', '.': '-', '+': ''}) }}" role="button">{{ 'Call'|trans }}</a>
+        <a class="btn " href="#" role="button">{{ 'Show on map'|trans }}</a>
+    </div>
 </div>

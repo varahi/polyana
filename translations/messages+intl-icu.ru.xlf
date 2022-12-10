@@ -37,6 +37,14 @@
         <source>in</source>
         <target>в</target>
       </trans-unit>
+      <trans-unit id="1uZFt9K" resname="Call">
+        <source>Call</source>
+        <target>Позвонить</target>
+      </trans-unit>
+      <trans-unit id="M7zW1Eb" resname="Show on map">
+        <source>Show on map</source>
+        <target>Показать на карте</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
