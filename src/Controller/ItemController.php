@@ -95,12 +95,16 @@ class ItemController extends AbstractController
 
     #[Route('/item-detail/{slug}', name: 'app_detail_item')]
     public function detailItem(
+        Request $request,
         Environment $twig,
-        Location $location,
-        ItemRepository $itemRepository,
-        CategoryRepository $categoryRepository,
-        LocationRepository $locationRepository
+        Item $item,
+        CategoryRepository $categoryRepository
     ): Response {
-        //dd($location);
+        $categoryId = $request->query->get('category');
+        $category = $categoryRepository->findOneBy(['id' => $categoryId]);
+        return new Response($twig->render('item/detail.html.twig', [
+            'item' => $item,
+            'category' => $category,
+        ]));
     }
 }

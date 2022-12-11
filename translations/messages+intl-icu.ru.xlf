@@ -45,6 +45,22 @@
         <source>Show on map</source>
         <target>Показать на карте</target>
       </trans-unit>
+      <trans-unit id="4CrW5RZ" resname="Timetable">
+        <source>Timetable</source>
+        <target>Часы работы</target>
+      </trans-unit>
+      <trans-unit id="T_y9MM3" resname="Average Check">
+        <source>Average Check</source>
+        <target>Средний чек</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Телефон</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Адрес</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,6 +1,16 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
+        {# Main page #}
         <li class="breadcrumb-item"><a href="{{ path('app_home') }}">{{ 'Main'|trans }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
+        {# Category page #}
+        {% if item.title is defined %}
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('app_item_list', { slug: category.slug}) }}">{{ category.title }}</a></li>
+        {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
+        {% endif %}
+        {# Detail page #}
+        {% if item.title is defined %}
+            <li class="breadcrumb-item active" aria-current="page">{{ item.title }}</li>
+        {% endif %}
     </ol>
 </nav>

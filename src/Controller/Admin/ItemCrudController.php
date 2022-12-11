@@ -33,6 +33,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 
 class ItemCrudController extends AbstractCrudController
 {
@@ -60,7 +61,8 @@ class ItemCrudController extends AbstractCrudController
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
-        yield TextField::new('averageCheck')->setColumns('col-md-10')->hideOnIndex();
+        yield MoneyField::new('averageCheck')->setCurrency('RUB')
+            ->setCustomOption('storedAsCents', false)->setColumns('col-md-10')->hideOnIndex();
 
         //yield TextField::new('alias')->setColumns('col-md-10');
 
@@ -77,7 +79,7 @@ class ItemCrudController extends AbstractCrudController
 
         yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
         yield FormField::addRow();
-        yield TextareaField::new('teaser')->setColumns('col-md-12')->hideOnIndex();
+        //yield TextareaField::new('teaser')->setColumns('col-md-12')->hideOnIndex();
         yield TextEditorField::new('description')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
         yield TextEditorField::new('note')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
 
