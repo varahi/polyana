@@ -32,7 +32,7 @@ class CategoryController extends AbstractController
 
         if ($categoryId !== '') {
             $category = $categoryRepository->findOneBy(['id' => $categoryId]);
-            $items = $itemRepository->findByParams($category);
+            $items = $itemRepository->findByParams($category, null);
         } else {
             $category = null;
             $items = $itemRepository->findAll();

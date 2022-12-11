@@ -46,17 +46,21 @@ class ItemRepository extends ServiceEntityRepository
     /**
      * @param Item $item
      */
-    public function findByParams($category)
+    public function findByParams($category, $location)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from(self::TABLE, 'i')
-            ->orderBy('i.created', 'DESC')
-        ;
+            ->orderBy('i.created', 'DESC');
 
         if ($category) {
             $qb->join('i.category', 'c')
                 ->where($qb->expr()->eq('c.id', $category->getId()));
+        }
+
+        if ($location) {
+            $qb->join('i.location', 'l')
+                ->andWhere($qb->expr()->in('l.id', $location->getId()));
         }
 
         return $qb->getQuery()->getResult();

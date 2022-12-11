@@ -35,11 +35,8 @@ class ItemController extends AbstractController
         CategoryRepository $categoryRepository,
         LocationRepository $locationRepository
     ): Response {
-
-        // $slug = $request->query->get('category');
-
         if ($category) {
-            $items = $itemRepository->findByCategory($category, '999');
+            $items = $itemRepository->findByParams($category, null);
         } else {
             $items = $itemRepository->findAll();
         }
@@ -79,7 +76,8 @@ class ItemController extends AbstractController
     ): Response {
         $categoryId = $request->query->get('category');
         $category = $categoryRepository->findOneBy(['id' => $categoryId]);
-        $items = $itemRepository->findByLocation($location, '999');
+
+        $items = $itemRepository->findByParams($category, $location);
         $categories = $categoryRepository->findAll();
         $locations = $locationRepository->findAll();
 

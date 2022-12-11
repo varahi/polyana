@@ -1,0 +1,39 @@
+{% extends 'main.html.twig' %}
+{% block title %} - {{ category.title }}{% endblock %}
+{% block body %}
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet"/>
+
+    <main class="wrapper">
+        {% include 'partials/item/_header.html.twig' %}
+        <div class="content">
+            {#            {% include 'partials/item/_breadcrumb.html.twig' %}#}
+            <div class="row">
+                <h1>{{ 'Map'|trans }}</h1>
+                {#                {% include 'partials/category/_buttons.html.twig' %}#}
+                <div class="col-md-12">
+                    <div id="leaflet-js-map" style="width: 100%; height: 600px;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        const map = L.map('leaflet-js-map').setView([46.231226, 6.051737], 14);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            minZoom: 0,
+            maxZoom: 20,
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        const leafletMarkers = L.layerGroup([
+            new L.marker([46.233226, 6.055737]),
+            new L.marker([46.2278, 6.0510]),
+            new L.marker([46.23336, 6.0471])
+        ]);
+        leafletMarkers.addTo(map);
+        leafletMarkers.bindPopup('content').openPopup();
+
+    </script>
+{% endblock %}

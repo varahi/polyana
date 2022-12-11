@@ -1,0 +1,46 @@
+{% extends 'main.html.twig' %}
+{% block title %} - {{ category.title }}{% endblock %}
+{% block body %}
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" rel="stylesheet"/>
+
+    <main class="wrapper">
+        {% include 'partials/item/_header.html.twig' %}
+        <div class="content">
+{#            {% include 'partials/item/_breadcrumb.html.twig' %}#}
+            <div class="row">
+                <h1>{{ 'Map'|trans }}</h1>
+{#                {% include 'partials/category/_buttons.html.twig' %}#}
+                <div class="col-md-12">
+                    <div id="osm-map"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        // Where you want to render the map.
+        var element = document.getElementById('osm-map');
+
+        // Height has to be set. You can do this in CSS too.
+        element.style = 'height:800px;';
+
+        // Create Leaflet map on map element.
+        var map = L.map(element);
+
+        // Add OSM tile leayer to the Leaflet map.
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Target's GPS coordinates.
+        var target = L.latLng('47.50737', '19.04611');
+
+        // Set map's center to target with zoom 14.
+        map.setView(target, 14);
+
+        // Place a marker on the same location.
+        L.marker(target).addTo(map);
+    </script>
+{% endblock %}
