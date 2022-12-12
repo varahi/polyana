@@ -43,7 +43,7 @@
       </trans-unit>
       <trans-unit id="M7zW1Eb" resname="Show on map">
         <source>Show on map</source>
-        <target>Показать на карте</target>
+        <target>На карте</target>
       </trans-unit>
       <trans-unit id="4CrW5RZ" resname="Timetable">
         <source>Timetable</source>
@@ -60,6 +60,14 @@
       <trans-unit id="Vu_PIJV" resname="Address">
         <source>Address</source>
         <target>Адрес</target>
+      </trans-unit>
+      <trans-unit id="bDUcEWz" resname="No items">
+        <source>No items</source>
+        <target>Нет записей</target>
+      </trans-unit>
+      <trans-unit id="fsvs6_1" resname="Go to page">
+        <source>Go to page</source>
+        <target>Перейти ...</target>
       </trans-unit>
     </body>
   </file>

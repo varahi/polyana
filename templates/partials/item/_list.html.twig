@@ -25,7 +25,11 @@
     </a>
     <div class="buttons buttons-item">
         <a class="btn active" href="tel:{{ item.phone|trim|replace({'(': '', ')': '', ' ': '-', '.': '-', '+': ''}) }}" role="button">{{ 'Call'|trans }}</a>
-        <a class="btn " href="#" role="button">{{ 'Show on map'|trans }}</a>
+        {% if category is defined and location is defined and location is not null %}
+            <a class="btn " href="{{ path('app_map_location_list', { slug: location.slug, category: category.id}) }}" role="button">{{ 'Show on map'|trans }}</a>
+        {% elseif category is defined %}
+            <a class="btn " href="{{ path('app_category_map', { slug: category.slug}) }}" role="button">{{ 'Show on map'|trans }}</a>
+        {% endif %}
     </div>
 </div>
 
