@@ -57,9 +57,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Items and tags');
         yield MenuItem::subMenu('Items and tags', 'fa fa-tags')->setSubItems([
             MenuItem::linkToCrud('Items', 'fa fa-list', Item::class),
-            MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class),
+            //MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class),
         ]);
 
+        yield MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class);
         yield MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class);
         yield MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class);
         yield MenuItem::linkToCrud('Events', 'fa fa-film', Event::class);

@@ -47,7 +47,7 @@ class LocationController extends AbstractController
             'location' => null,
             'locationId' => null,
             'lat' => $this->getLatArr($items),
-            'lng' => $this->getLatArr($items),
+            'lng' => $this->getLngArr($items),
         ]);
     }
 
@@ -86,7 +86,7 @@ class LocationController extends AbstractController
             'location' => null,
             'locationId' => null,
             'lat' => $this->getLatArr($items),
-            'lng' => $this->getLatArr($items),
+            'lng' => $this->getLngArr($items),
         ]));
     }
 
@@ -127,7 +127,7 @@ class LocationController extends AbstractController
             'location' => $location,
             'locationId' => $location->getId(),
             'lat' => $this->getLatArr($items),
-            'lng' => $this->getLatArr($items),
+            'lng' => $this->getLngArr($items),
         ]));
     }
 

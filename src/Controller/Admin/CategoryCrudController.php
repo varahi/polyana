@@ -69,7 +69,7 @@ class CategoryCrudController extends AbstractCrudController
             ->setUploadDir('public_html/uploads/files')
             ->setFormType(FileUploadType::class)
             ->setRequired(false);
-        yield AssociationField::new('items')->hideOnIndex();
+        //yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
     }
 

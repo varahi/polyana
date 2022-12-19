@@ -21,9 +21,13 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'tags')]
     private Collection $items;
 
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'tags')]
+    private Collection $events;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -70,6 +74,33 @@ class Tag
     {
         if ($this->items->removeElement($item)) {
             $item->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeTag($this);
         }
 
         return $this;

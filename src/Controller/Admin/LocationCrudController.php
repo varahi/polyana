@@ -59,7 +59,7 @@ class LocationCrudController extends AbstractCrudController
 //            ]);
 
         yield TextEditorField::new('description')->hideOnIndex();
-        yield AssociationField::new('items')->hideOnIndex();
+        //yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
     }
 
