@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Item;
+use App\Entity\Event;
 use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;
+use App\Service\CoordinateService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,18 @@ use Twig\Environment;
 
 class EventController extends AbstractController
 {
+    /**
+     * @param ManagerRegistry $doctrine
+     * @param CoordinateService $coordinateService
+     */
+    public function __construct(
+        ManagerRegistry $doctrine,
+        CoordinateService $coordinateService
+    ) {
+        $this->doctrine = $doctrine;
+        $this->coordinateService = $coordinateService;
+    }
+
     #[Route('/event', name: 'app_event')]
     public function index(): Response
     {
@@ -44,12 +58,16 @@ class EventController extends AbstractController
     public function detailItem(
         Request $request,
         Environment $twig,
-        Item $item,
+        Event $item,
         CategoryRepository $categoryRepository
     ): Response {
         $categoryId = $request->query->get('category');
         $category = $categoryRepository->findOneBy(['id' => $categoryId]);
-        return new Response($twig->render('item/detail.html.twig', [
+
+        // Set coordinates for item
+        $this->coordinateService->setCoordinates($item);
+
+        return new Response($twig->render('event/detail.html.twig', [
             'item' => $item,
             'category' => $category,
         ]));

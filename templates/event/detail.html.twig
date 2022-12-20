@@ -1,0 +1,55 @@
+{% extends 'main.html.twig' %}
+{% block title %} - {{ category.title }}{% endblock %}
+{% block body %}
+    <main class="wrapper">
+        {% include 'partials/item/_header.html.twig' %}
+        <div class="content">
+            {% include 'partials/event/_breadcrumb.html.twig' %}
+            <div class="detail-item">
+                <a href="javascript:history.back()" class="back-link"><h1 class="back">{{ item.title }}</h1></a>
+                <div class="slider">
+                    <img src="{{ asset('uploads/files/' ~ item.image) }}" class="item-image" alt="" />
+                </div>
+                {% if item.tags %}
+                    <div class="detail-item__tags">
+                        {% for tag in item.tags %}
+                            <span class="tag-item">#{{ tag.title }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if item.description %}
+                    <div class="detail-item__description">
+                        {{ item.description|raw }}
+                    </div>
+                {% endif %}
+
+                {% if item.note %}
+                    <div class="detail-item__note">
+                        {{ item.note|raw }}
+                    </div>
+                {% endif %}
+
+                <div class="detail-item__contact_info">
+                    <div class="detail-item__contact_item">
+{#                        {% if item.phone %}#}
+{#                            <div>{{ 'Phone'|trans }}:</div>#}
+{#                            <p>{{ item.phone }}</p>#}
+{#                        {% endif %}#}
+{#                        {% if item.address %}#}
+{#                            <div>{{ 'Address'|trans }}:</div>#}
+{#                            <p>{{ item.address }}</p>#}
+{#                        {% endif %}#}
+{#                        {% if item.timetable %}#}
+{#                            <div>{{ 'Timetable'|trans }}:</div>#}
+{#                            <p>{{ item.timetable }}</p>#}
+{#                        {% endif %}#}
+{#                        {% if item.averageCheck %}#}
+{#                            <div>{{ 'Average Check'|trans }}:</div>#}
+{#                            <p>{{ item.averageCheck|format_currency('RUB', {fraction_digit: 0}) }}</p>#}
+{#                        {% endif %}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

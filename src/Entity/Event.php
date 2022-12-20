@@ -64,6 +64,15 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?bool $isFree = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lng = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $detailAddress = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -274,6 +283,42 @@ class Event
     public function setIsFree(?bool $isFree): self
     {
         $this->isFree = $isFree;
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?string $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getDetailAddress(): ?string
+    {
+        return $this->detailAddress;
+    }
+
+    public function setDetailAddress(?string $detailAddress): self
+    {
+        $this->detailAddress = $detailAddress;
 
         return $this;
     }

@@ -11,12 +11,26 @@
             <div class="address">{{ item.address }}</div>
             <div class="row">
                 <div class="col-6">
-
+                    {% if item.timetable %}
+                        <div class="timetable">{{ 'Timetable'|trans }}: {{ item.timetable }}</div>
+                    {% endif %}
                 </div>
                 <div class="col-6">
-
+                    {% if item.price %}
+                        <div class="average">{{ 'Average Check'|trans }}: {{ item.price|format_currency('RUB', {fraction_digit: 0}) }}</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </a>
+
+    <div class="buttons buttons-item">
+        <a class="btn active" href="{{ path('app_detail_event', { slug: item.slug}) }}" role="button">{{ 'More'|trans }}</a>
+        {% if category is defined and location is defined and location is not null %}
+            <a class="btn " href="" role="button">{{ 'Show on map'|trans }}</a>
+        {% elseif category is defined %}
+            <a class="btn " href="" role="button">{{ 'Show on map'|trans }}</a>
+        {% endif %}
+    </div>
+
 </div>

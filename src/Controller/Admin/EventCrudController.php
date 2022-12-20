@@ -46,6 +46,10 @@ class EventCrudController extends AbstractCrudController
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
 
+        yield MoneyField::new('price')->setCurrency('RUB')
+            ->setCustomOption('storedAsCents', false)->setColumns('col-md-10')->hideOnIndex();
+        yield DateField::new('date')->setColumns('col-md-10');
+
         yield FormField::addPanel('General information')->setIcon('fa fa-info-circle')->setCssClass('col-sm-6');
         yield AssociationField::new('location')->setColumns('col-md-12')->hideOnIndex();
         yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
@@ -57,10 +61,9 @@ class EventCrudController extends AbstractCrudController
 
         yield TextField::new('link')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('address')->setColumns('col-md-10')->hideOnIndex();
-
-        yield MoneyField::new('price')->setCurrency('RUB')
-            ->setCustomOption('storedAsCents', false)->setColumns('col-md-10')->hideOnIndex();
-        yield DateField::new('date')->setColumns('col-md-10');
+        yield TextField::new('detailAddress')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('lat')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('lng')->setColumns('col-md-10')->hideOnIndex();
 
         yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
         yield FormField::addRow();

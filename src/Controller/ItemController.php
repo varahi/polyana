@@ -13,9 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use App\Repository\ItemRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Service\CoordinateService;
 
 class ItemController extends AbstractController
 {
+    /**
+     * @param ManagerRegistry $doctrine
+     * @param CoordinateService $coordinateService
+     */
+    public function __construct(
+        ManagerRegistry $doctrine,
+        CoordinateService $coordinateService
+    ) {
+        $this->doctrine = $doctrine;
+        $this->coordinateService = $coordinateService;
+    }
+
     /**
      * @param Environment $twig
      * @param Category $category
@@ -91,6 +105,16 @@ class ItemController extends AbstractController
         ]));
     }
 
+    /**
+     * @param Request $request
+     * @param Environment $twig
+     * @param Item $item
+     * @param CategoryRepository $categoryRepository
+     * @return Response
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/item-detail/{slug}', name: 'app_detail_item')]
     public function detailItem(
         Request $request,
@@ -100,6 +124,10 @@ class ItemController extends AbstractController
     ): Response {
         $categoryId = $request->query->get('category');
         $category = $categoryRepository->findOneBy(['id' => $categoryId]);
+
+        // Set coordinates for item
+        $this->coordinateService->setCoordinates($item);
+
         return new Response($twig->render('item/detail.html.twig', [
             'item' => $item,
             'category' => $category,
