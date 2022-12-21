@@ -39,6 +39,15 @@ class EventRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array $order
+     * @return Event[]
+     */
+    public function findAllOrder(array $order)
+    {
+        return $this->findBy([], $order);
+    }
+
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */

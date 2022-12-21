@@ -8,7 +8,18 @@
 {#            {% if location is not null %}#}
 {#                <span class="small-grey">{{ category.subtitle }} {{ 'in'|trans }} {{ location.title }}</span>#}
 {#            {% endif %}#}
-            <div class="address">{{ item.address }}</div>
+
+            <div class="row">
+                <div class="col-8">
+                    {% if item.address %}
+                        <div class="address">{{ item.address }}</div>
+                    {% endif %}
+                    {% if item.detailAddress %}
+                        <div class="address">{{ item.detailAddress }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-6">
                     {% if item.timetable %}

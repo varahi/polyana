@@ -6,8 +6,10 @@
             </a>
         </div>
         <div class="col-md-5 buttons">
-            <a class="btn " href="{{ path('app_events') }}" role="button">{{ 'Events'|trans }}</a>
-            <a class="btn " href="{{ path('app_map') }}" role="button">{{ 'Map'|trans }}</a>
+            <a class="btn" href="{{ path('app_events') }}" role="button">{{ 'Events'|trans }}</a>
+            {% if item is not null %}
+                <a class="btn" href="{{ path('app_detail_object_map', { slug: item.slug}) }}" role="button">{{ 'Map'|trans }}</a>
+            {% endif %}
         </div>
     </div>
 </header>

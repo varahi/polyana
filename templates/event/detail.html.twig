@@ -2,7 +2,7 @@
 {% block title %} - {{ category.title }}{% endblock %}
 {% block body %}
     <main class="wrapper">
-        {% include 'partials/item/_header.html.twig' %}
+        {% include 'partials/event/_header.html.twig' %}
         <div class="content">
             {% include 'partials/event/_breadcrumb.html.twig' %}
             <div class="detail-item">
@@ -29,26 +29,16 @@
                     </div>
                 {% endif %}
 
-                <div class="detail-item__contact_info">
-                    <div class="detail-item__contact_item">
-{#                        {% if item.phone %}#}
-{#                            <div>{{ 'Phone'|trans }}:</div>#}
-{#                            <p>{{ item.phone }}</p>#}
-{#                        {% endif %}#}
-{#                        {% if item.address %}#}
-{#                            <div>{{ 'Address'|trans }}:</div>#}
-{#                            <p>{{ item.address }}</p>#}
-{#                        {% endif %}#}
-{#                        {% if item.timetable %}#}
-{#                            <div>{{ 'Timetable'|trans }}:</div>#}
-{#                            <p>{{ item.timetable }}</p>#}
-{#                        {% endif %}#}
-{#                        {% if item.averageCheck %}#}
-{#                            <div>{{ 'Average Check'|trans }}:</div>#}
-{#                            <p>{{ item.averageCheck|format_currency('RUB', {fraction_digit: 0}) }}</p>#}
-{#                        {% endif %}#}
+                {% if item.menu %}
+                    <div class="detail-item__contact_info">
+                        <div class="detail-item__menu">
+                            <h3>{{ 'Menu'|trans }}:</h3>
+                            {{ item.menu|raw }}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
+
+
             </div>
         </div>
     </main>

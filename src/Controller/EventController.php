@@ -45,12 +45,13 @@ class EventController extends AbstractController
         EventRepository $eventRepository
     ): Response {
         $locations = $locationRepository->findAll();
-        $items = $eventRepository->findAll();
+        $items = $eventRepository->findAllOrder(['date' => 'DESC']);
 
         return new Response($twig->render('event/list.html.twig', [
             'category' => null,
             'locations' => $locations,
             'items' => $items,
+            'item' => null
         ]));
     }
 

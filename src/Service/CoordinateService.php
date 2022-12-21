@@ -45,4 +45,48 @@ class CoordinateService extends AbstractController
         $entityManager->persist($item);
         $entityManager->flush();
     }
+
+    /**
+     * @param $items
+     * @return mixed|null
+     */
+    public function getLatArr($items)
+    {
+        if (count($items) > 0) {
+            foreach ($items as $item) {
+                if ($item->getLat() !=='') {
+                    $latArr[] = $item->getLat();
+                } else {
+                    $latArr = null;
+                }
+            }
+            $latArr = min($latArr);
+        } else {
+            $latArr = null;
+        }
+
+        return $latArr;
+    }
+
+    /**
+     * @param $items
+     * @return mixed|null
+     */
+    public function getLngArr($items)
+    {
+        if (count($items) > 0) {
+            foreach ($items as $item) {
+                if ($item->getLng() !=='') {
+                    $lngArr[] = $item->getLng();
+                } else {
+                    $lngArr = null;
+                }
+            }
+            $lngArr = max($lngArr);
+        } else {
+            $lngArr = null;
+        }
+
+        return $lngArr;
+    }
 }

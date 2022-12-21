@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Event;
 use App\Entity\Location;
 use App\Repository\CategoryRepository;
+use App\Repository\EventRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LocationRepository;
+use App\Service\CoordinateService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +19,15 @@ use Twig\Environment;
 
 class LocationController extends AbstractController
 {
+    /**
+     * @param CoordinateService $coordinateService
+     */
+    public function __construct(
+        CoordinateService $coordinateService
+    ) {
+        $this->coordinateService = $coordinateService;
+    }
+
     /**
      * @return Response
      */
@@ -46,8 +59,8 @@ class LocationController extends AbstractController
             'items' => $items,
             'location' => null,
             'locationId' => null,
-            'lat' => $this->getLatArr($items),
-            'lng' => $this->getLngArr($items),
+            'lat' => $this->coordinateService->getLatArr($items),
+            'lng' => $this->coordinateService->getLngArr($items),
         ]);
     }
 
@@ -85,8 +98,8 @@ class LocationController extends AbstractController
             'locations' => $locations,
             'location' => null,
             'locationId' => null,
-            'lat' => $this->getLatArr($items),
-            'lng' => $this->getLngArr($items),
+            'lat' => $this->coordinateService->getLatArr($items),
+            'lng' => $this->coordinateService->getLngArr($items),
         ]));
     }
 
@@ -126,52 +139,33 @@ class LocationController extends AbstractController
             'locations' => $locations,
             'location' => $location,
             'locationId' => $location->getId(),
-            'lat' => $this->getLatArr($items),
-            'lng' => $this->getLngArr($items),
+            'lat' => $this->coordinateService->getLatArr($items),
+            'lng' => $this->coordinateService->getLngArr($items),
         ]));
     }
 
-    /**
-     * @param $items
-     * @return mixed|null
-     */
-    private function getLatArr($items)
-    {
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                if ($item->getLat() !=='') {
-                    $latArr[] = $item->getLat();
-                } else {
-                    $latArr = null;
-                }
-            }
-            $latArr = min($latArr);
-        } else {
-            $latArr = null;
-        }
+    #[Route('/map/event/{slug}', name: 'app_detail_object_map')]
+    public function detailObjectMap(
+        Request $request,
+        Environment $twig,
+        Event $item,
+        EventRepository $eventRepository,
+        CategoryRepository $categoryRepository,
+        LocationRepository $locationRepository
+    ): Response {
+        $items = $eventRepository->findAll();
+        $categories = $categoryRepository->findAll();
+        $locations = $locationRepository->findAll();
 
-        return $latArr;
-    }
-
-    /**
-     * @param $items
-     * @return mixed|null
-     */
-    private function getLngArr($items)
-    {
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                if ($item->getLng() !=='') {
-                    $lngArr[] = $item->getLng();
-                } else {
-                    $lngArr = null;
-                }
-            }
-            $lngArr = max($lngArr);
-        } else {
-            $lngArr = null;
-        }
-
-        return $lngArr;
+        return new Response($twig->render('location/map.html.twig', [
+            'category' => null,
+            'categories' => $categories,
+            'locations' => $locations,
+            'items' => $items,
+            'location' => null,
+            'locationId' => null,
+            'lat' => $this->coordinateService->getLatArr($items),
+            'lng' => $this->coordinateService->getLngArr($items),
+        ]));
     }
 }
