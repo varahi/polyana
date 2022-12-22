@@ -12,15 +12,14 @@
     var marks = [
         {% for item in items %}
             {% set description = '' %}
-            {% if item.description %}
-                {% set description = item.description|striptags|u.truncate(50,  '...')  %}
+                {% if item.description %}
+                    {% set description = item.description|striptags|u.truncate(50,  '...')  %}
+                {% endif %}
+            {% if category is not null %}
+                { text: '{{ item.title}} <br />  {{ description|raw }}  <img class="rounded map-img" src="{{ asset('uploads/files/' ~ item.image) }}" width="50" height="50"/> <a href="{{ path('app_detail_item', { slug: item.slug, category: category.id}) }}">{{ 'Go to page'|trans }}</a>', latlng: [{{ item.lat }}, {{ item.lng }}], },
+            {% else %}
+            { text: '{{ item.title}} <br />  {{ description|raw }} <img class="rounded map-img" src="{{ asset('uploads/files/' ~ item.image) }}" width="50" height="50"/> <a href="{{ path('app_detail_item', { slug: item.slug}) }}">{{ 'Go to page'|trans }}</a>', latlng: [{{ item.lat }}, {{ item.lng }}], },
             {% endif %}
-        {% if category is not null %}
-            { text: '{{ item.title}} <br />  {{ description|raw }} <br /><a href="{{ path('app_detail_item', { slug: item.slug, category: category.id}) }}">{{ 'Go to page'|trans }}</a>', latlng: [{{ item.lat }}, {{ item.lng }}], },
-        {% else %}
-        { text: '{{ item.title}} <br />  {{ description|raw }} <br /><a href="{{ path('app_detail_item', { slug: item.slug}) }}">{{ 'Go to page'|trans }}</a>', latlng: [{{ item.lat }}, {{ item.lng }}], },
-        {% endif %}
-
         {% endfor %}
     ];
     for(var i = 0; i<=marks.length; i++) {

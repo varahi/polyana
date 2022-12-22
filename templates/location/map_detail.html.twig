@@ -4,14 +4,18 @@
     <main class="wrapper">
         {% include 'partials/item/_header.html.twig' %}
         <div class="content">
-            {% include 'partials/item/_map_breadcrumb.html.twig' %}
+            {% if isEvent == 1 %}
+                {% include 'partials/event/_breadcrumb.html.twig' %}
+            {% else %}
+                {% include 'partials/item/_breadcrumb.html.twig' %}
+            {% endif %}
             <div class="row">
                 {#<h1>{{ category.title }}</h1>#}
                 {% include 'partials/category/_buttons.html.twig' %}
                 <div class="col-md-12">
                     {% if items %}
                         <div id="map" style="height: 700px;"></div>
-                        {% include 'partials/location/_map_script.html.twig' %}
+                        {% include 'partials/location/_map_detail_script.html.twig' %}
                     {% else %}
                         <p>{{ 'No items'|trans }}</p>
                     {% endif %}

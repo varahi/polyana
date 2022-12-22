@@ -31,27 +31,23 @@ class LocationController extends AbstractController
     /**
      * @return Response
      */
-    #[Route('/location', name: 'app_location')]
-    public function index(): Response
-    {
-        return $this->render('location/index.html.twig', [
-            'controller_name' => 'LocationController',
-        ]);
-    }
-
-    /**
-     * @return Response
-     */
     #[Route('/map', name: 'app_map')]
     public function map(
+        Request $request,
         LocationRepository $locationRepository,
         CategoryRepository $categoryRepository,
-        ItemRepository $itemRepository
+        ItemRepository $itemRepository,
+        EventRepository $eventRepository
     ): Response {
         $locations = $locationRepository->findAll();
         $categories = $categoryRepository->findAll();
-        $items = $itemRepository->findAll();
 
+        $isEvent = $request->query->get('isEvent');
+        if ($isEvent == 1) {
+            $items = $eventRepository->findAll();
+        } else {
+            $items = $itemRepository->findAll();
+        }
         return $this->render('location/map.html.twig', [
             'category' => null,
             'categories' => $categories,
@@ -157,13 +153,15 @@ class LocationController extends AbstractController
         $categories = $categoryRepository->findAll();
         $locations = $locationRepository->findAll();
 
-        return new Response($twig->render('location/map.html.twig', [
+        return new Response($twig->render('location/map_detail.html.twig', [
             'category' => null,
             'categories' => $categories,
             'locations' => $locations,
             'items' => $items,
+            'item' => $item,
             'location' => null,
             'locationId' => null,
+            'isEvent' => 1,
             'lat' => $this->coordinateService->getLatArr($items),
             'lng' => $this->coordinateService->getLngArr($items),
         ]));

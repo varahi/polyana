@@ -16,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EventRepository extends ServiceEntityRepository
 {
+    public const TABLE = 'App\Entity\Event';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
@@ -46,6 +48,20 @@ class EventRepository extends ServiceEntityRepository
     public function findAllOrder(array $order)
     {
         return $this->findBy([], $order);
+    }
+
+    public function findByParams()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+
+        $qb->select('e')
+            ->from(self::TABLE, 'e')
+            ->where($expr->neq('e.hidden', 1))
+            ->orderBy('e.date', 'DESC');
+
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

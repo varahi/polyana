@@ -37,10 +37,11 @@
 
     <div class="buttons buttons-item">
         <a class="btn active" href="{{ path('app_detail_event', { slug: item.slug}) }}" role="button">{{ 'More'|trans }}</a>
+
         {% if category is defined and location is defined and location is not null %}
-            <a class="btn " href="" role="button">{{ 'Show on map'|trans }}</a>
+            <a class="btn " href="{{ path('app_detail_object_map', { slug: item.slug}) }}" role="button">{{ 'Show on map'|trans }}</a>
         {% elseif category is defined %}
-            <a class="btn " href="" role="button">{{ 'Show on map'|trans }}</a>
+            <a class="btn " href="{{ path('app_detail_object_map', { slug: item.slug}) }}" role="button">{{ 'Show on map'|trans }}</a>
         {% endif %}
     </div>
 

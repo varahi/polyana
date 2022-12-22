@@ -52,7 +52,7 @@ class ItemController extends AbstractController
         if ($category) {
             $items = $itemRepository->findByParams($category, null);
         } else {
-            $items = $itemRepository->findAll();
+            $items = $itemRepository->findLimitOrder('999', '0');
         }
         $categories = $categoryRepository->findAll();
         $locations = $locationRepository->findAll();

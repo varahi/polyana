@@ -11,6 +11,8 @@
                 <a class="btn " href="{{ path('app_map_location_list', { slug: location.slug, category: category.id}) }}" role="button">{{ 'Map'|trans }}</a>
             {% elseif category is defined and category is not null %}
                 <a class="btn " href="{{ path('app_category_map', { slug: category.slug}) }}" role="button">{{ 'Map'|trans }}</a>
+             {% else %}
+                 <a class="btn" href="{{ path('app_map') }}" role="button">{{ 'Map'|trans }}</a>
             {% endif %}
         </div>
     </div>

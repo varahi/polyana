@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Entity\Event;
 use App\Entity\Item;
 use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -44,18 +45,51 @@ class ItemRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param array $order
+     * @return Item[]
+     */
+    public function findAllOrder(array $order)
+    {
+        return $this->findBy([], $order);
+    }
+
+    /**
+     * @param $limit
+     * @param $offset
+     * @return float|int|mixed|string
+     */
+    public function findLimitOrder($limit, $offset)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+
+        $qb->select('i')
+            ->from(self::TABLE, 'i')
+            ->where($expr->neq('i.hidden', 1))
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('i.created', 'ASC');
+
+        $reviews = $qb->getQuery()->getResult();
+        return $reviews;
+    }
+
+    /**
      * @param Item $item
      */
     public function findByParams($category, $location)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+
         $qb->select('i')
             ->from(self::TABLE, 'i')
+            ->where($expr->neq('i.hidden', 1))
             ->orderBy('i.created', 'DESC');
 
         if ($category) {
             $qb->join('i.category', 'c')
-                ->where($qb->expr()->eq('c.id', $category->getId()));
+                ->andWhere($qb->expr()->eq('c.id', $category->getId()));
         }
 
         if ($location) {
