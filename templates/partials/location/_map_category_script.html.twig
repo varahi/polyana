@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    var map = L.map( 'map-{{ loop.index }}', {
+        center: [43.6833476, 40.2637226],
+        zoom: 8,
+    });
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: ['a','b','c']
+    }).addTo(map);
+
+    var marks = [
+        {% for item in category.items %}
+            {% if item.lat is not empty and item.lng is not empty %}
+                {% set description = '' %}
+                {% if item.description %}
+                {% set description = item.description|striptags|u.truncate(50,  '...')  %}
+            {% endif %}
+
+            { text: '{{ item.title}} <br />  {{ description|raw }} <img class="rounded map-img" src="{{ asset('uploads/files/' ~ item.image) }}" width="50" height="50"/> <a href="{{ path('app_detail_item', { slug: item.slug}) }}">{{ 'Go to page'|trans }}</a>', latlng: [{{ item.lat }}, {{ item.lng }}], },
+        {%  endif %}
+    {% endfor %}
+    ];
+    for(var i = 0; i<=marks.length; i++) {
+        L.marker(marks[i].latlng)
+            .bindPopup(marks[i].text, {
+                direction: 'top',
+                sticky: true,
+                offset: [0, -15],
+            })
+            .addTo(map);
+    }
+</script>

@@ -7,21 +7,55 @@
             {% include 'partials/item/_map_breadcrumb.html.twig' %}
             <div class="row">
                 <div class="col-md-12">
-                    {% for category in categories %}
-                        {{ category.title }}<br />
-                        {% for item in category.items %}
-                            <div id="map" style="height: 700px;"></div>
-                            {% include 'partials/location/_map_script.html.twig' %}
-                        {% endfor %}
+                    <!-- Slider main container -->
+                    <div class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            {% for category in categories %}
+                            <div class="swiper-slide">
+                                <h3>{{ category.title }}</h3>
+                                <div id="map-{{ loop.index }}" style="height: 555px;"></div>
+                                {% include 'partials/location/_map_category_script.html.twig' %}
+                            </div>
+                            {% endfor %}
+                            ...
+                        </div>
+                        <!-- If we need pagination -->
+                        {#<div class="swiper-pagination"></div>#}
 
-                    {% endfor %}
+                        <!-- If we need navigation buttons -->
+                        {#<div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>#}
 
-                    {#{% if items %}
-                        <div id="map" style="height: 700px;"></div>
-                        {% include 'partials/location/_map_script.html.twig' %}
-                    {% else %}
-                        <p>{{ 'No items'|trans }}</p>
-                    {% endif %}#}
+                        <!-- If we need scrollbar -->
+                        <div class="swiper-scrollbar"></div>
+                    </div>
+
+                    <script>
+                        const swiper = new Swiper('.swiper', {
+                            // Optional parameters
+                            direction: 'vertical',
+                            loop: true,
+
+                            // If we need pagination
+                            pagination: {
+                                el: '.swiper-pagination',
+                            },
+
+                            // Navigation arrows
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+
+                            // And if we need scrollbar
+                            scrollbar: {
+                                el: '.swiper-scrollbar',
+                            },
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>

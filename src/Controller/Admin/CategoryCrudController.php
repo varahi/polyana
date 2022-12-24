@@ -48,6 +48,7 @@ class CategoryCrudController extends AbstractCrudController
         yield TextField::new('subtitle');
         yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield BooleanField::new('isFullWidth');
+        yield BooleanField::new('isHidden');
 
         //yield AssociationField::new('parent');
         //yield AssociationField::new('children');
@@ -70,7 +71,10 @@ class CategoryCrudController extends AbstractCrudController
             ->setFormType(FileUploadType::class)
             ->setRequired(false);
         //yield AssociationField::new('items')->hideOnIndex();
-        yield BooleanField::new('isHidden');
+
+
+        yield TextField::new('lat')->setColumns('col-md-2')->hideOnIndex();
+        yield TextField::new('lng')->setColumns('col-md-2')->hideOnIndex();
     }
 
     /*

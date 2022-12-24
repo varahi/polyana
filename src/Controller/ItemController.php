@@ -58,7 +58,7 @@ class ItemController extends AbstractController
         //$locations = $locationRepository->findAll();
         $locations = $locationRepository->findLimitOrder('999', '0');
 
-        return new Response($twig->render('item/index.html.twig', [
+        return new Response($twig->render('item/list.html.twig', [
             'items' => $items,
             'categories' => $categories,
             'category' => $category,

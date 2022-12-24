@@ -55,6 +55,12 @@ class Category
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lng = null;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -221,6 +227,30 @@ class Category
     public function setSubtitle(?string $subtitle): self
     {
         $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?string $lng): self
+    {
+        $this->lng = $lng;
 
         return $this;
     }
