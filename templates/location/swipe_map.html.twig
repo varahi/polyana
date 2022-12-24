@@ -6,19 +6,22 @@
         <div class="content">
             {% include 'partials/item/_map_breadcrumb.html.twig' %}
             <div class="row">
-                {#<h1>{{ category.title }}</h1>#}
-                {% include 'partials/category/_buttons.html.twig' %}
                 <div class="col-md-12">
-                    {% if items %}
-                        {% if lat is not empty and lng is not empty %}
+                    {% for category in categories %}
+                        {{ category.title }}<br />
+                        {% for item in category.items %}
                             <div id="map" style="height: 700px;"></div>
                             {% include 'partials/location/_map_script.html.twig' %}
-                        {% else %}
-                            <p>{{ 'No objects on map'|trans }}</p>
-                        {% endif %}
+                        {% endfor %}
+
+                    {% endfor %}
+
+                    {#{% if items %}
+                        <div id="map" style="height: 700px;"></div>
+                        {% include 'partials/location/_map_script.html.twig' %}
                     {% else %}
                         <p>{{ 'No items'|trans }}</p>
-                    {% endif %}
+                    {% endif %}#}
                 </div>
             </div>
         </div>

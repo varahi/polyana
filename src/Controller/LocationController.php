@@ -48,7 +48,7 @@ class LocationController extends AbstractController
         } else {
             $items = $itemRepository->findAll();
         }
-        return $this->render('location/map.html.twig', [
+        return $this->render('location/swipe_map.html.twig', [
             'category' => null,
             'categories' => $categories,
             'locations' => $locations,

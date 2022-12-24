@@ -99,7 +99,7 @@ class Item
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $averageCheck = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'items')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'items', orphanRemoval: true, cascade: ['persist'])]
     private Collection $tags;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

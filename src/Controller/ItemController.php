@@ -55,7 +55,8 @@ class ItemController extends AbstractController
             $items = $itemRepository->findLimitOrder('999', '0');
         }
         $categories = $categoryRepository->findAll();
-        $locations = $locationRepository->findAll();
+        //$locations = $locationRepository->findAll();
+        $locations = $locationRepository->findLimitOrder('999', '0');
 
         return new Response($twig->render('item/index.html.twig', [
             'items' => $items,
@@ -93,7 +94,8 @@ class ItemController extends AbstractController
 
         $items = $itemRepository->findByParams($category, $location);
         $categories = $categoryRepository->findAll();
-        $locations = $locationRepository->findAll();
+        //$locations = $locationRepository->findAll();
+        $locations = $locationRepository->findLimitOrder('999', '0');
 
         return new Response($twig->render('item/index.html.twig', [
             'items' => $items,

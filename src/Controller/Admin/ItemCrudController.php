@@ -34,6 +34,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use App\Form\CrudTagFormType;
 
 class ItemCrudController extends AbstractCrudController
 {
@@ -77,18 +79,23 @@ class ItemCrudController extends AbstractCrudController
         yield TextField::new('lat')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('lng')->setColumns('col-md-10')->hideOnIndex();
 
-        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
+        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-9');
         yield FormField::addRow();
         //yield TextareaField::new('teaser')->setColumns('col-md-12')->hideOnIndex();
         yield TextEditorField::new('description')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
         yield TextEditorField::new('note')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
 
 
-        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-12');
+        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-3');
         yield FormField::addRow();
         yield AssociationField::new('category')->setColumns('col-md-12')->hideOnIndex();
         yield AssociationField::new('location')->setColumns('col-md-12')->hideOnIndex();
         yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
+
+//        CollectionField::new('tags')
+//            ->setFormTypeOption('entry_type', CrudTagFormType::class)
+//            ->setColumns('col-md-12')->hideOnIndex();
+
         yield ImageField::new('image')
             ->setBasePath('uploads/files/')
             ->setUploadDir('public_html/uploads/files')

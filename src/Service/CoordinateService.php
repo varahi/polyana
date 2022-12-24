@@ -29,21 +29,23 @@ class CoordinateService extends AbstractController
         $context = stream_context_create($opts);
 
         // Open the file using the HTTP headers set above
-        $data = file_get_contents($urlRequest, false, $context);
-        $json = json_decode($data);
-        foreach ($json as $data) {
-            $lat = $data->lat;
-            $lon = $data->lon;
-        }
+        if (file_get_contents($urlRequest, false, $context)) {
+            $data = file_get_contents($urlRequest, false, $context);
+            $json = json_decode($data);
+            foreach ($json as $data) {
+                $lat = $data->lat;
+                $lon = $data->lon;
+            }
 
-        if (isset($lat) && isset($lon)) {
-            $item->setLat($lat);
-            $item->setLng($lon);
-        }
+            if (isset($lat) && isset($lon)) {
+                $item->setLat($lat);
+                $item->setLng($lon);
+            }
 
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($item);
-        $entityManager->flush();
+            $entityManager = $this->doctrine->getManager();
+            $entityManager->persist($item);
+            $entityManager->flush();
+        }
     }
 
     /**

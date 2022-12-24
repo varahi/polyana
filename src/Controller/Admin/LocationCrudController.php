@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use App\Form\CrudChildrenLocationFormType;
 
 class LocationCrudController extends AbstractCrudController
 {
@@ -38,7 +39,7 @@ class LocationCrudController extends AbstractCrudController
             ->setDefaultSort(['id' => 'ASC']);
     }
 
-    public function configureFields(string $pageName): iterable
+    public function _configureFields(string $pageName): iterable
     {
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled');
         //yield TextField::new('slug');
@@ -61,6 +62,19 @@ class LocationCrudController extends AbstractCrudController
         yield TextEditorField::new('description')->hideOnIndex();
         //yield AssociationField::new('items')->hideOnIndex();
         yield BooleanField::new('isHidden');
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            IntegerField::new('id')->setFormTypeOption('disabled', 'disabled'),
+            SlugField::new('slug')->setTargetFieldName('title'),
+            BooleanField::new('isHidden'),
+            TextField::new('title'),
+            AssociationField::new('parent'),
+            //CollectionField::new('children')
+            //    ->setFormTypeOption('entry_type', CrudChildrenLocationFormType::class)
+        ];
     }
 
     /*

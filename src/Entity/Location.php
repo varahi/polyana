@@ -30,7 +30,8 @@ class Location
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    //#[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $children;
 
     #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'location')]
@@ -48,7 +49,7 @@ class Location
     #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 7, nullable: true)]
     private ?string $lat = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 7)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 9, scale: 7,nullable: true)]
     private ?string $lng = null;
 
     public function __construct()

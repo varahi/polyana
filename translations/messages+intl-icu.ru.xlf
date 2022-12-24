@@ -73,6 +73,10 @@
         <source>More</source>
         <target>Подробнее</target>
       </trans-unit>
+      <trans-unit id="ckslIu2" resname="No objects on map">
+        <source>No objects on map</source>
+        <target>Нет объектов на карте</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -14,8 +14,12 @@
                 {% include 'partials/category/_buttons.html.twig' %}
                 <div class="col-md-12">
                     {% if items %}
-                        <div id="map" style="height: 700px;"></div>
-                        {% include 'partials/location/_map_detail_script.html.twig' %}
+                        {% if lat is not empty and lng is not empty %}
+                            <div id="map" style="height: 700px;"></div>
+                            {% include 'partials/location/_map_detail_script.html.twig' %}
+                        {% else %}
+                            <p>{{ 'No objects on map'|trans }}</p>
+                        {% endif %}
                     {% else %}
                         <p>{{ 'No items'|trans }}</p>
                     {% endif %}

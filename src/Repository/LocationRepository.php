@@ -16,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LocationRepository extends ServiceEntityRepository
 {
+    public const TABLE = 'App\Entity\Location';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Location::class);
@@ -37,6 +39,27 @@ class LocationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @param $limit
+     * @param $offset
+     * @return float|int|mixed|string
+     */
+    public function findLimitOrder($limit, $offset)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+
+        $qb->select('l')
+            ->from(self::TABLE, 'l')
+            ->where($expr->neq('l.isHidden', 1))
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('l.title', 'ASC');
+
+        $reviews = $qb->getQuery()->getResult();
+        return $reviews;
     }
 
 //    /**
