@@ -73,6 +73,9 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $detailAddress = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $eventTime = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -319,6 +322,18 @@ class Event
     public function setDetailAddress(?string $detailAddress): self
     {
         $this->detailAddress = $detailAddress;
+
+        return $this;
+    }
+
+    public function getEventTime(): ?string
+    {
+        return $this->eventTime;
+    }
+
+    public function setEventTime(?string $eventTime): self
+    {
+        $this->eventTime = $eventTime;
 
         return $this;
     }

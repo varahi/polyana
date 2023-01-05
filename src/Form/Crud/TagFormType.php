@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Crud;
 
 use App\Entity\Tag;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CrudTagFormType extends AbstractType
+class TagFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

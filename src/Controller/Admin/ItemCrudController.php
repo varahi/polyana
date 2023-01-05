@@ -3,39 +3,22 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Item;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use App\Form\Crud\ImageFormType;
+use App\Form\Crud\TagFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use Doctrine\ORM\EntityRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
-use App\Form\CrudTagFormType;
 
 class ItemCrudController extends AbstractCrudController
 {
@@ -60,6 +43,7 @@ class ItemCrudController extends AbstractCrudController
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled')->hideWhenCreating();
         yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield BooleanField::new('hidden');
+        yield BooleanField::new('isSelected')->hideOnIndex();
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
@@ -79,28 +63,32 @@ class ItemCrudController extends AbstractCrudController
         yield TextField::new('lat')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('lng')->setColumns('col-md-10')->hideOnIndex();
 
-        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-9');
+
+        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-12');
+        yield FormField::addRow();
+        yield AssociationField::new('category')->setColumns('col-md-10')->hideOnIndex();
+        yield AssociationField::new('location')->setColumns('col-md-10')->hideOnIndex();
+        //yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
+        yield CollectionField::new('tags')->setFormTypeOption('entry_type', TagFormType::class);
+
+        yield ImageField::new('image')
+            ->setBasePath('uploads/files/')
+            ->setUploadDir('public_html/uploads/files')
+            ->setFormType(FileUploadType::class)
+            ->setRequired(false)
+            ->setLabel('Cover image');
+
+        //yield CollectionField::new('images')
+        //    ->setFormTypeOption('entry_type', ImageFormType::class);
+
+
+        yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
         yield FormField::addRow();
         //yield TextareaField::new('teaser')->setColumns('col-md-12')->hideOnIndex();
         yield TextEditorField::new('description')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
         yield TextEditorField::new('note')->setFormType(CKEditorType::class)->hideOnIndex()->setColumns('col-md-12');
 
 
-        yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-3');
-        yield FormField::addRow();
-        yield AssociationField::new('category')->setColumns('col-md-12')->hideOnIndex();
-        yield AssociationField::new('location')->setColumns('col-md-12')->hideOnIndex();
-        yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
-
-//        CollectionField::new('tags')
-//            ->setFormTypeOption('entry_type', CrudTagFormType::class)
-//            ->setColumns('col-md-12')->hideOnIndex();
-
-        yield ImageField::new('image')
-            ->setBasePath('uploads/files/')
-            ->setUploadDir('public_html/uploads/files')
-            ->setFormType(FileUploadType::class)
-            ->setRequired(false);
 
         //yield FormField::addPanel('Relations')->setIcon('fa fa-chain')->setCssClass('col-sm-12');
         //yield FormField::addRow();

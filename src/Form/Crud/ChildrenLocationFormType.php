@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Crud;
 
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CrudChildrenLocationFormType extends AbstractType
+class ChildrenLocationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

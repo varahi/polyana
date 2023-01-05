@@ -3,18 +3,18 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Location;
+use App\Form\Crud\ChildrenLocationFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
-use App\Form\CrudChildrenLocationFormType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 
 class LocationCrudController extends AbstractCrudController
 {
@@ -72,8 +72,7 @@ class LocationCrudController extends AbstractCrudController
             BooleanField::new('isHidden'),
             TextField::new('title'),
             AssociationField::new('parent'),
-            //CollectionField::new('children')
-            //    ->setFormTypeOption('entry_type', CrudChildrenLocationFormType::class)
+            //CollectionField::new('children')->setFormTypeOption('entry_type', ChildrenLocationFormType::class)
         ];
     }
 

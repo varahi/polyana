@@ -45,6 +45,7 @@ class EventCrudController extends AbstractCrudController
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
+        yield TextField::new('eventTime')->setColumns('col-md-10')->hideOnIndex();
 
         yield MoneyField::new('price')->setCurrency('RUB')
             ->setCustomOption('storedAsCents', false)->setColumns('col-md-10')->hideOnIndex();
