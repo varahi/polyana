@@ -111,6 +111,9 @@ class Item
     #[ORM\Column(nullable: true)]
     private ?bool $isSelected = null;
 
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: Attachment::class, cascade: ['persist', 'remove'])]
+    private Collection $attachments;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -118,6 +121,7 @@ class Item
         $this->location = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -516,6 +520,36 @@ class Item
     public function setIsSelected(?bool $isSelected): self
     {
         $this->isSelected = $isSelected;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Attachment>
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Attachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments->add($attachment);
+            $attachment->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Attachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getItem() === $this) {
+                $attachment->setItem(null);
+            }
+        }
 
         return $this;
     }

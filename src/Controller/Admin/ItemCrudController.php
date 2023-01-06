@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Item;
+use App\Form\Crud\AttachmentType;
 use App\Form\Crud\ImageFormType;
 use App\Form\Crud\TagFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -80,6 +81,10 @@ class ItemCrudController extends AbstractCrudController
 
         //yield CollectionField::new('images')
         //    ->setFormTypeOption('entry_type', ImageFormType::class);
+
+        yield CollectionField::new('attachments')
+            ->setEntryType(AttachmentType::class)
+            ->onlyOnForms();
 
 
         yield FormField::addPanel('Additional info')->setIcon('fa fa-gear')->setCssClass('col-sm-12');
