@@ -105,9 +105,6 @@ class Item
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $note = null;
 
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: File::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
-    private Collection $images;
-
     #[ORM\Column(nullable: true)]
     private ?bool $isSelected = null;
 
@@ -120,7 +117,6 @@ class Item
         $this->created = new \DateTime();
         $this->location = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->images = new ArrayCollection();
         $this->attachments = new ArrayCollection();
     }
 
@@ -478,36 +474,6 @@ class Item
     public function setNote(?string $note): self
     {
         $this->note = $note;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, File>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(File $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(File $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getItem() === $this) {
-                $image->setItem(null);
-            }
-        }
 
         return $this;
     }
