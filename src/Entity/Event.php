@@ -76,9 +76,13 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $eventTime = null;
 
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Attachment::class, cascade: ['persist', 'remove'])]
+    private Collection $attachments;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -334,6 +338,36 @@ class Event
     public function setEventTime(?string $eventTime): self
     {
         $this->eventTime = $eventTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Attachment>
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(Attachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments->add($attachment);
+            $attachment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(Attachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getEvent() === $this) {
+                $attachment->setEvent(null);
+            }
+        }
 
         return $this;
     }

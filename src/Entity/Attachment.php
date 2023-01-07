@@ -33,6 +33,9 @@ class Attachment
     #[ORM\ManyToOne(inversedBy: 'attachments')]
     private ?Item $item = null;
 
+    #[ORM\ManyToOne(inversedBy: 'attachments')]
+    private ?Event $event = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -107,6 +110,18 @@ class Attachment
     public function setItem(?Item $item): self
     {
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

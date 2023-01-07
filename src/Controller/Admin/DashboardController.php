@@ -53,16 +53,17 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToRoute('Back to the site', 'fa fa-home', 'app_home');
+        yield MenuItem::section('<hr />');
 
-        yield MenuItem::section('Items and tags');
-        yield MenuItem::subMenu('Items and tags', 'fa fa-tags')->setSubItems([
-            MenuItem::linkToCrud('Items', 'fa fa-list', Item::class),
-            //MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class),
-        ]);
-
-        yield MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class);
-        yield MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class);
-        yield MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class);
+        yield MenuItem::section('Records');
+        yield MenuItem::linkToCrud('Items', 'fa fa-list', Item::class);
         yield MenuItem::linkToCrud('Events', 'fa fa-film', Event::class);
+
+        yield MenuItem::section('Database');
+        yield MenuItem::subMenu('Database', 'fa fa-database')->setSubItems([
+            MenuItem::linkToCrud('Tag', 'fa fa-hashtag', Tag::class),
+            MenuItem::linkToCrud('Categories', 'fa fa-cog', Category::class),
+            MenuItem::linkToCrud('Locations', 'fa fa-location-arrow', Location::class)
+        ]);
     }
 }

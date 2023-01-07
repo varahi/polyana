@@ -77,6 +77,30 @@
         <source>No objects on map</source>
         <target>Нет объектов на карте</target>
       </trans-unit>
+      <trans-unit id="Items" resname="Items">
+        <source>Items</source>
+        <target>Объекты</target>
+      </trans-unit>
+      <trans-unit id="Tags" resname="Tags">
+        <source>Tags</source>
+        <target>Теги</target>
+      </trans-unit>
+      <trans-unit id="Categories" resname="Categories">
+        <source>Categories</source>
+        <target>Категории</target>
+      </trans-unit>
+      <trans-unit id="Locations" resname="Locations">
+        <source>Locations</source>
+        <target>Места</target>
+      </trans-unit>
+      <trans-unit id="Database" resname="Database">
+        <source>Database</source>
+        <target>База данных</target>
+      </trans-unit>
+      <trans-unit id="Records" resname="Records">
+        <source>Records</source>
+        <target>Записи</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
