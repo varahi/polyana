@@ -53,7 +53,7 @@ class ItemCrudController extends AbstractCrudController
         yield IntegerField::new('id')->setFormTypeOption('disabled', 'disabled')->hideWhenCreating();
         yield SlugField::new('slug')->hideOnIndex()->setTargetFieldName('title');
         yield BooleanField::new('hidden');
-        yield BooleanField::new('isSelected')->hideOnIndex();
+        yield BooleanField::new('isSelected');
         yield TextField::new('title')->setColumns('col-md-10');
         yield TextField::new('subtitle')->setColumns('col-md-10')->hideOnIndex();
         yield TextField::new('timetable')->setColumns('col-md-10')->hideOnIndex();
@@ -77,7 +77,8 @@ class ItemCrudController extends AbstractCrudController
         yield FormField::addRow();
         yield AssociationField::new('category')->setColumns('col-md-10')->hideOnIndex();
         yield AssociationField::new('location')->setColumns('col-md-10')->hideOnIndex();
-        //yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
+
+        //yield AssociationField::new('tags')->setColumns('col-md-10')->hideOnIndex();
         yield CollectionField::new('tags')->setFormTypeOption('entry_type', TagFormType::class)->hideOnIndex();
 
         yield FormField::addPanel('Images')->setIcon('fa fa-image')->setCssClass('col-sm-6');

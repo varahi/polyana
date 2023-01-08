@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Event;
 use App\Form\Crud\AttachmentType;
+use App\Form\Crud\TagFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -73,6 +74,7 @@ class EventCrudController extends AbstractCrudController
         yield FormField::addRow();
         yield AssociationField::new('location')->setColumns('col-md-8')->hideOnIndex();
         //yield AssociationField::new('tags')->setColumns('col-md-12')->hideOnIndex();
+        yield CollectionField::new('tags')->setFormTypeOption('entry_type', TagFormType::class)->hideOnIndex();
 
         yield FormField::addPanel('Images')->setIcon('fa fa-image')->setCssClass('col-sm-6');
         yield FormField::addRow();

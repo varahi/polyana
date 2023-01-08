@@ -52,7 +52,7 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?bool $hidden = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'events')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'events', cascade: ['persist', 'remove'])]
     private Collection $tags;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -19,7 +19,11 @@
       </trans-unit>
       <trans-unit id="jRT25y3" resname="Events">
         <source>Events</source>
-        <target>Афиша</target>
+        <target>Мероприятия</target>
+      </trans-unit>
+      <trans-unit id="Event" resname="Event">
+        <source>Event</source>
+        <target>Мероприятие</target>
       </trans-unit>
       <trans-unit id="vhdrABX" resname="Map">
         <source>Map</source>
@@ -47,7 +51,7 @@
       </trans-unit>
       <trans-unit id="4CrW5RZ" resname="Timetable">
         <source>Timetable</source>
-        <target>Часы работы</target>
+        <target>Время работы</target>
       </trans-unit>
       <trans-unit id="T_y9MM3" resname="Average Check">
         <source>Average Check</source>
@@ -56,6 +60,14 @@
       <trans-unit id="Y9zriAC" resname="Phone">
         <source>Phone</source>
         <target>Телефон</target>
+      </trans-unit>
+      <trans-unit id="Phone2" resname="Phone2">
+        <source>Phone2</source>
+        <target>Телефон 2</target>
+      </trans-unit>
+      <trans-unit id="Phone3" resname="Phone3">
+        <source>Phone3</source>
+        <target>Телефон 3</target>
       </trans-unit>
       <trans-unit id="Vu_PIJV" resname="Address">
         <source>Address</source>
@@ -100,6 +112,102 @@
       <trans-unit id="Records" resname="Records">
         <source>Records</source>
         <target>Записи</target>
+      </trans-unit>
+      <trans-unit id="Slug" resname="Slug">
+        <source>Slug</source>
+        <target>Сегмент урл</target>
+      </trans-unit>
+      <trans-unit id="Hidden" resname="Hidden">
+        <source>Hidden</source>
+        <target>Скрыто</target>
+      </trans-unit>
+      <trans-unit id="Is Free" resname="Is Free">
+        <source>Is Free</source>
+        <target>Вход свободный</target>
+      </trans-unit>
+      <trans-unit id="Title" resname="Title">
+        <source>Title</source>
+        <target>Заголовок</target>
+      </trans-unit>
+      <trans-unit id="Subtitle" resname="Subtitle">
+        <source>Subtitle</source>
+        <target>Подзаголовок</target>
+      </trans-unit>
+      <trans-unit id="Detail Address" resname="Detail Address">
+        <source>Detail Address</source>
+        <target>Дополнительные детали адреса</target>
+      </trans-unit>
+      <trans-unit id="dvtnjDy" resname="Main info">
+        <source>Main Info</source>
+        <target>Информация</target>
+      </trans-unit>
+      <trans-unit id="General information" resname="General information">
+        <source>General information</source>
+        <target>Основная информация</target>
+      </trans-unit>
+      <trans-unit id="UDxG7pY" resname="Additional info">
+        <source>Additional Info</source>
+        <target>Расширенная информация</target>
+      </trans-unit>
+      <trans-unit id="Event Time" resname="Event Time">
+        <source>Event Time</source>
+        <target>Время проведения мероприятия</target>
+      </trans-unit>
+      <trans-unit id="Price" resname="Price">
+        <source>Price</source>
+        <target>Цена</target>
+      </trans-unit>
+      <trans-unit id="Lat" resname="Lat">
+        <source>Lat</source>
+        <target>Широта</target>
+      </trans-unit>
+      <trans-unit id="Lng" resname="Lng">
+        <source>Lng</source>
+        <target>Долгота</target>
+      </trans-unit>
+      <trans-unit id="Link" resname="Link">
+        <source>Link</source>
+        <target>Ссылка</target>
+      </trans-unit>
+      <trans-unit id="Location" resname="Location">
+        <source>Location</source>
+        <target>Место</target>
+      </trans-unit>
+      <trans-unit id="Relations" resname="Relations">
+        <source>Relations</source>
+        <target>Связи</target>
+      </trans-unit>
+      <trans-unit id="Images" resname="Images">
+        <source>Images</source>
+        <target>Изображения</target>
+      </trans-unit>
+      <trans-unit id="Description" resname="Description">
+        <source>Description</source>
+        <target>Описание</target>
+      </trans-unit>
+      <trans-unit id="Note" resname="Note">
+        <source>Note</source>
+        <target>Примечание</target>
+      </trans-unit>
+      <trans-unit id="Date" resname="Date">
+        <source>Date</source>
+        <target>Дата</target>
+      </trans-unit>
+      <trans-unit id="Item" resname="Item">
+        <source>Item</source>
+        <target>Объект</target>
+      </trans-unit>
+      <trans-unit id="Is Selected" resname="Is Selected">
+        <source>Is Selected</source>
+        <target>Выбранный объект</target>
+      </trans-unit>
+      <trans-unit id="Site" resname="Site">
+        <source>Site</source>
+        <target>Сайт</target>
+      </trans-unit>
+      <trans-unit id="Category" resname="Category">
+        <source>Category</source>
+        <target>Категория</target>
       </trans-unit>
     </body>
   </file>
