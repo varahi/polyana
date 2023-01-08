@@ -1,0 +1,8 @@
+.form-widget-custom .data-row:first-child {
+    box-shadow: none !important;
+}
+dl.datalist .data-row-custom {
+    display: grid;
+    padding: 8px;
+    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+}
